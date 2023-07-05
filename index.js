@@ -1,3 +1,1 @@
-const model = new Model();
-
-console.log("hello world");
+const app = new Controller();

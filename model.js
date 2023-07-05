@@ -1,6 +1,7 @@
 class Model {
-    constructor() {
+    constructor({ onPostChanged }) {
         this.posts = [];
+        this.onPostChanged = onPostChanged;
     }
 
     addPost(title, description) {
@@ -8,6 +9,8 @@ class Model {
             title,
             description,
         });
+
+        this.onPostChanged(this.posts);
     }
 
     getPosts() {
