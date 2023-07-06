@@ -8,6 +8,7 @@ class Model {
         this.posts.push({
             title,
             description,
+            timestamp: Date.now(),
         });
 
         this.onPostChanged(this.posts);
