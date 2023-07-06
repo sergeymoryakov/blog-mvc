@@ -7,13 +7,21 @@ class Controller {
         this.view = new View({
             onNewPost: this.handleViewNewPost,
         });
+
+        this.api = new API();
     }
 
-    handleModelPostChanged = (posts) => {
-        this.view.renderPosts(posts);
+    init() {
+        this.api.fetchPosts().then((posts) => {
+            this.model.setPosts(posts);
+        });
+    }
+
+    handleModelPostChanged = (posts, isError) => {
+        this.view.render(posts, isError);
     };
 
-    handleViewNewPost = (title, description) => {
-        this.model.addPost(title, description);
+    handleViewNewPost = (title, body) => {
+        this.model.addPost(title, body);
     };
 }

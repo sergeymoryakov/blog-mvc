@@ -1,24 +1,29 @@
 class View {
     constructor({ onNewPost }) {
-        this.postNode = document.getElementById("posts");
+        this.postNode = document.getElementById("postsList");
         this.titleInputNode = document.getElementById("titleInput");
-        this.descriptionInputNode = document.getElementById("descriptionInput");
+        this.bodyInputNode = document.getElementById("bodyInput");
         this.addPostBtnNode = document.getElementById("addPostBtn");
+        this.errorNode = document.getElementById("errorPlaceholder");
 
         this.onNewPost = onNewPost;
 
         this.addPostBtnNode.addEventListener("click", this.handleBtnClick);
     }
 
-    renderPosts(posts) {
-        this.postNode.innerHTML = "";
+    render(posts, isError) {
+        this.clearView();
+
+        if (isError) {
+            this.errorNode.innerText = "Enter error";
+        }
 
         posts.forEach((post) => {
             this.postNode.innerHTML += `
             <li>
                 <p>${this.buildDateString(post.timestamp)}</p>
                 <p>${post.title}</p>
-                <p>${post.description}</p>
+                <p>${post.body}</p>
             </li>
             `;
         });
@@ -26,9 +31,9 @@ class View {
 
     handleBtnClick = () => {
         const title = this.titleInputNode.value;
-        const description = this.descriptionInputNode.value;
+        const body = this.bodyInputNode.value;
 
-        this.onNewPost(title, description);
+        this.onNewPost(title, body);
     };
 
     buildDateString(timestamp) {
@@ -39,5 +44,10 @@ class View {
         return `${date.getDate()}.${
             date.getMonth() + 1
         }.${date.getFullYear()} at ${date.getHours()}:${date.getMinutes()}`;
+    }
+
+    clearView() {
+        this.postNode.innerHTML = "";
+        this.errorNode.innerText = "";
     }
 }
