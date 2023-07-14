@@ -38,9 +38,9 @@ class View {
 
     buildDateString(timestamp) {
         const date = new Date(timestamp);
-        console.log(timestamp);
-        console.log(date);
-        console.log(date.getDate());
+        // console.log(timestamp);
+        // console.log(date);
+        // console.log(date.getDate());
         return `${date.getDate()}.${
             date.getMonth() + 1
         }.${date.getFullYear()} at ${date.getHours()}:${date.getMinutes()}`;
